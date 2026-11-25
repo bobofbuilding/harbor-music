@@ -2,7 +2,7 @@
 
 Harbor Music runs a private music library from a folder of audio files. Use an always-on Mac or Linux computer as your **media host**, or run it on a compatible NAS. Pair your phones, tablets, and computers with the same host to share Favorites, playlists, and where you left off. Keep device-only playlists and download selected lists for offline listening. Friend sharing is optional.
 
-See the [design document and architecture diagram](DESIGN.md) for how an installation fits together. The [copyable setup prompt](SETUP-PROMPT.md) is available if you want help following these steps in a coding assistant.
+Visit the [Harbor Music website](https://harbor-music.bittrees.org/) for an overview and quick start. See the [design document and architecture diagram](DESIGN.md) for how an installation fits together. The [copyable setup prompt](SETUP-PROMPT.md) is available if you want help following these steps in a coding assistant.
 
 ## Start a library
 
@@ -89,3 +89,7 @@ node tests/sharing.cjs
 ```
 
 To use an existing Playwright installation, set `HARBOR_PLAYWRIGHT` to its absolute package directory. Linux systems may need additional browser libraries for the tests. The server itself needs no browser tooling. [Playwright installation documentation](https://playwright.dev/docs/intro)
+
+## License
+
+Harbor Music is available under the [MIT License](LICENSE).
