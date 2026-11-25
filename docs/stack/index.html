@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="See how the Harbor Music server, SQLite catalog, private HTTPS connection, and web player fit together.">
+  <meta name="theme-color" content="#131c24">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Technology stack | Harbor Music">
+  <meta property="og:description" content="See how the Harbor Music server, SQLite catalog, private HTTPS connection, and web player fit together.">
+  <meta property="og:url" content="https://harbor-music.bittrees.org/stack/">
+  <meta property="og:image" content="https://harbor-music.bittrees.org/harbor-listening.jpg">
+  <meta property="og:image:alt" content="Wired headphones and vinyl records on a walnut desk">
+  <title>Technology stack | Harbor Music</title>
+  <link rel="canonical" href="https://harbor-music.bittrees.org/stack/">
+  <link rel="icon" href="../harbor-icon.png" type="image/png">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="shell header-inner">
+      <a class="brand" href="../" aria-label="Harbor Music home">
+        <img src="../harbor-icon.png" alt="" width="34" height="34">
+        Harbor Music
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../features/">Features</a>
+        <a href="../stack/" aria-current="page">Stack</a>
+        <a href="../setup/">Setup</a>
+        <a class="nav-source" href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section id="stack" class="section stack" aria-labelledby="stack-title">
+      <div class="shell">
+        <div class="stack-heading">
+          <h1 id="stack-title" class="page-title">Technology stack</h1>
+          <p class="section-intro">Your files and catalog live on the media host. Each paired device connects to it over private HTTPS.</p>
+        </div>
+        <div class="stack-grid">
+          <figure>
+            <img src="../architecture.png" width="1600" height="866" alt="Harbor Music architecture. A media host with your music folder and catalog connects to paired devices over a private HTTPS network. Each device has its own offline storage. Friend sharing uses a separate optional transfer route.">
+          </figure>
+          <dl class="stack-list">
+            <div><dt>Media host</dt><dd>Python runs the server on an always-on computer or compatible NAS. SQLite stores the catalog and shared state. FFmpeg can read tags through ffprobe.</dd></div>
+            <div><dt>Private connection</dt><dd>Tailscale Serve gives paired devices a private HTTPS address. Another private HTTPS reverse proxy can serve the same role.</dd></div>
+            <div><dt>Connected devices</dt><dd>The web player streams supported files directly. Each device stores its own downloads and device-only playlists.</dd></div>
+          </dl>
+        </div>
+        <p class="text-link"><a href="https://github.com/bobofbuilding/harbor-music/blob/main/DESIGN.md">Read the design document</a></p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="shell footer-inner">
+      <a class="brand" href="../">Harbor Music</a>
+      <nav aria-label="Footer navigation">
+        <a href="../setup/">Setup</a>
+        <a href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
+        <a href="https://github.com/bobofbuilding/harbor-music/blob/main/LICENSE">MIT License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

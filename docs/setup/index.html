@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Set up a Harbor Music library on a Mac, Linux computer, or compatible NAS. Connect over private HTTPS and pair your listening devices.">
+  <meta name="theme-color" content="#131c24">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Setup | Harbor Music">
+  <meta property="og:description" content="Set up a Harbor Music library on a Mac, Linux computer, or compatible NAS. Connect over private HTTPS and pair your listening devices.">
+  <meta property="og:url" content="https://harbor-music.bittrees.org/setup/">
+  <meta property="og:image" content="https://harbor-music.bittrees.org/harbor-listening.jpg">
+  <meta property="og:image:alt" content="Wired headphones and vinyl records on a walnut desk">
+  <title>Setup | Harbor Music</title>
+  <link rel="canonical" href="https://harbor-music.bittrees.org/setup/">
+  <link rel="icon" href="../harbor-icon.png" type="image/png">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="shell header-inner">
+      <a class="brand" href="../" aria-label="Harbor Music home">
+        <img src="../harbor-icon.png" alt="" width="34" height="34">
+        Harbor Music
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="../features/">Features</a>
+        <a href="../stack/">Stack</a>
+        <a href="../setup/" aria-current="page">Setup</a>
+        <a class="nav-source" href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section id="setup" class="section setup" aria-labelledby="setup-title">
+      <div class="shell setup-grid">
+        <div class="setup-intro">
+          <h1 id="setup-title" class="page-title">Set up Harbor Music</h1>
+          <p class="section-intro">Start with an always-on Mac or Linux computer, Git, Python 3.11 or newer, and a folder of audio files such as MP3, M4A, or WAV. A compatible NAS can also be your media host.</p>
+          <div class="guide-links">
+            <a href="https://github.com/bobofbuilding/harbor-music#start-a-library">Full setup guide</a>
+            <a href="https://github.com/bobofbuilding/harbor-music/blob/main/SETUP-PROMPT.md">Setup prompt for a coding assistant</a>
+          </div>
+        </div>
+        <ol class="steps" role="list">
+          <li>
+            <h3>Start Harbor on the media host</h3>
+            <p>Run these commands in Terminal and choose your music folder when asked. Open the local player address printed by the setup command to confirm your tracks appear.</p>
+            <div class="command">
+              <div class="command-bar"><span>Terminal</span><button type="button" data-copy="install-command" hidden>Copy commands</button></div>
+              <pre tabindex="0"><code id="install-command">git clone https://github.com/bobofbuilding/harbor-music.git
+cd harbor-music
+./setup-harbor</code></pre>
+            </div>
+          </li>
+          <li>
+            <h3>Give your devices a private address</h3>
+            <p><a href="https://tailscale.com/docs/how-to/quickstart">Install Tailscale</a> on the host and each listening device and join the same private network. Run this on the host and append <code>/music/</code> to the HTTPS address Tailscale prints. Keep the owner player local to the host.</p>
+            <div class="command">
+              <div class="command-bar"><span>Terminal</span><button type="button" data-copy="network-command" hidden>Copy command</button></div>
+              <pre tabindex="0"><code id="network-command">tailscale serve --bg http://127.0.0.1:8765</code></pre>
+            </div>
+          </li>
+          <li>
+            <h3>Pair each device</h3>
+            <p>On the host, open <strong>Devices</strong> to get a one-time code. Open your private Harbor address on the device and enter the code. Generate a new code for each device.</p>
+            <p>On iPhone or iPad, add Harbor to the Home Screen from Safari before pairing if you plan to use it there. Keep the media host awake and Harbor running for streaming away from home.</p>
+          </li>
+        </ol>
+        <p id="copy-status" class="visually-hidden" role="status"></p>
+      </div>
+    </section>
+
+    <section class="section questions" aria-labelledby="questions-title">
+      <div class="shell questions-grid">
+        <h2 id="questions-title">Before you install</h2>
+        <div class="question-list">
+          <details>
+            <summary>Where do I get the music files?</summary>
+            <p>Use files from your own collection, such as purchased downloads or CDs you’ve digitized. Harbor can’t import Spotify’s catalog or offline downloads from streaming apps.</p>
+          </details>
+          <details>
+            <summary>Do I need a NAS or a Mac app?</summary>
+            <p>An always-on Mac or Linux computer with local storage works as a media host. You can use a browser on your listening devices or <a href="https://github.com/bobofbuilding/harbor-music#build-the-mac-app">build the optional Mac app</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="shell footer-inner">
+      <a class="brand" href="../">Harbor Music</a>
+      <nav aria-label="Footer navigation">
+        <a href="../setup/">Setup</a>
+        <a href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
+        <a href="https://github.com/bobofbuilding/harbor-music/blob/main/LICENSE">MIT License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

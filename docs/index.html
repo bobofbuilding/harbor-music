@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Turn the music files you own into a private streaming library. Set up Harbor Music on a Mac, Linux computer, or compatible NAS and listen across your devices.">
+  <meta name="description" content="Harbor Music is an open-source private music player that streams the files you own from a Mac, Linux computer, or compatible NAS.">
   <meta name="theme-color" content="#131c24">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Harbor Music">
-  <meta property="og:description" content="Bring your own music files and stream them from home. Harbor Music is a private, self-hosted music player.">
+  <meta property="og:title" content="Harbor Music | Stream your own music">
+  <meta property="og:description" content="Harbor Music is an open-source private music player that streams the files you own from a Mac, Linux computer, or compatible NAS.">
   <meta property="og:url" content="https://harbor-music.bittrees.org/">
   <meta property="og:image" content="https://harbor-music.bittrees.org/harbor-listening.jpg">
   <meta property="og:image:alt" content="Wired headphones and vinyl records on a walnut desk">
-  <title>Harbor Music | A private streaming library for your music</title>
+  <title>Harbor Music | Stream your own music</title>
   <link rel="canonical" href="https://harbor-music.bittrees.org/">
   <link rel="icon" href="./harbor-icon.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
-  <script src="./site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -26,9 +25,9 @@
         Harbor Music
       </a>
       <nav aria-label="Main navigation">
-        <a href="#features">Features</a>
-        <a href="#stack">Stack</a>
-        <a href="#setup">Setup</a>
+        <a href="./features/">Features</a>
+        <a href="./stack/">Stack</a>
+        <a href="./setup/">Setup</a>
         <a class="nav-source" href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
       </nav>
     </div>
@@ -37,13 +36,13 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="shell hero-grid">
         <div class="hero-copy">
-          <h1 id="hero-title">Cancel the subscription.<br>Keep the music.</h1>
-          <p>Bring your own music files. Harbor Music turns them into a private streaming library you can listen to at home, on the road, or offline.</p>
+          <h1 id="hero-title">Stream your own music</h1>
+          <p>Run Harbor Music on a computer or NAS at home. Listen to your library from your phone, tablet, or desktop browser.</p>
           <div class="actions">
-            <a class="button primary" href="#setup">Set up Harbor Music</a>
-            <a class="button outline" href="https://github.com/bobofbuilding/harbor-music">View source</a>
+            <a class="button primary" href="./setup/">Set up Harbor Music</a>
+            <a class="button outline" href="https://github.com/bobofbuilding/harbor-music">View on GitHub</a>
           </div>
-          <p class="hero-note">Open source under the MIT License. Host on Mac, Linux, or a compatible NAS.</p>
+          <p class="hero-note">Free and open source under the MIT License.</p>
         </div>
         <div class="hero-image">
           <img src="./harbor-listening.jpg" alt="Wired headphones resting on a stack of records" width="1120" height="1400" fetchpriority="high">
@@ -51,112 +50,14 @@
       </div>
     </section>
 
-    <section id="features" class="section features" aria-labelledby="features-title">
-      <div class="shell features-grid">
-        <div>
-          <h2 id="features-title">Listen across your devices</h2>
-          <p class="section-intro">Use Harbor on iPhone, iPad, Android, and desktop browsers. Add it to your phone’s Home Screen or build the optional Mac app.</p>
-        </div>
-        <dl class="feature-list">
-          <div>
-            <dt>One library, synced listening</dt>
-            <dd>Favorites, synced playlists, and the last track and position follow you between paired devices. Harbor can retry an interrupted stream from the saved spot. Device-only playlists stay on the device that made them.</dd>
-          </div>
-          <div>
-            <dt>Downloads that follow your lists</dt>
-            <dd>Choose Favorites or playlists to keep offline. Harbor saves songs as they’re added and clears automatic copies when no selected list needs them.</dd>
-          </div>
-          <div>
-            <dt>Play the whole selection</dt>
-            <dd>Browse by artist, album, or genre and sort alphabetically. Play in order or shuffle the full playlist, album, or filtered view as you scroll.</dd>
-          </div>
-          <div>
-            <dt>Share a song or playlist privately</dt>
-            <dd>Optional friend sharing sends a copy to another Harbor installation. You approve the recipient, and the offer closes after one verified import.</dd>
-          </div>
-        </dl>
-      </div>
-    </section>
-
-    <section id="stack" class="section stack" aria-labelledby="stack-title">
+    <section class="section home-overview" aria-labelledby="overview-title">
       <div class="shell">
-        <div class="stack-heading">
-          <h2 id="stack-title">How it fits together</h2>
-          <p class="section-intro">One media host serves your library. Your listening devices connect to it over a private network.</p>
-        </div>
-        <div class="stack-grid">
-          <figure>
-            <img src="./architecture.png" width="1600" height="866" loading="lazy" alt="Harbor Music architecture. A media host with your music folder and catalog connects to paired devices over a private HTTPS network. Each device has its own offline storage. Friend sharing uses a separate optional transfer route.">
-          </figure>
-          <dl class="stack-list">
-            <div><dt>Media host</dt><dd>Python runs the server on an always-on computer or compatible NAS. SQLite stores the catalog and shared state. FFmpeg can read tags through ffprobe.</dd></div>
-            <div><dt>Private connection</dt><dd>Tailscale Serve gives paired devices a private HTTPS address. Another private HTTPS reverse proxy can serve the same role.</dd></div>
-            <div><dt>Connected devices</dt><dd>The web player streams supported files directly. Each device stores its own downloads and device-only playlists.</dd></div>
-          </dl>
-        </div>
-        <p class="text-link"><a href="https://github.com/bobofbuilding/harbor-music/blob/main/DESIGN.md">Read the design document</a></p>
-      </div>
-    </section>
-
-    <section id="setup" class="section setup" aria-labelledby="setup-title">
-      <div class="shell setup-grid">
-        <div class="setup-intro">
-          <h2 id="setup-title">Set up your library</h2>
-          <p class="section-intro">Start with an always-on Mac or Linux computer, Git, Python 3.11 or newer, and a folder of audio files such as MP3, M4A, or WAV. A compatible NAS can also be your media host.</p>
-          <div class="guide-links">
-            <a href="https://github.com/bobofbuilding/harbor-music#start-a-library">Full setup guide</a>
-            <a href="https://github.com/bobofbuilding/harbor-music/blob/main/SETUP-PROMPT.md">Setup prompt for a coding assistant</a>
-          </div>
-        </div>
-        <ol class="steps" role="list">
-          <li>
-            <h3>Start Harbor on the media host</h3>
-            <p>Run these commands in Terminal and choose your music folder when asked. Open the local player address printed by the setup command to confirm your tracks appear.</p>
-            <div class="command">
-              <div class="command-bar"><span>Terminal</span><button type="button" data-copy="install-command" hidden>Copy commands</button></div>
-              <pre tabindex="0"><code id="install-command">git clone https://github.com/bobofbuilding/harbor-music.git
-cd harbor-music
-./setup-harbor</code></pre>
-            </div>
-          </li>
-          <li>
-            <h3>Give your devices a private address</h3>
-            <p><a href="https://tailscale.com/kb/1017/install">Install Tailscale</a> on the host and each listening device and join the same private network. Run this on the host and append <code>/music/</code> to the HTTPS address Tailscale prints. Keep the owner player local to the host.</p>
-            <div class="command">
-              <div class="command-bar"><span>Terminal</span><button type="button" data-copy="network-command" hidden>Copy command</button></div>
-              <pre tabindex="0"><code id="network-command">tailscale serve --bg http://127.0.0.1:8765</code></pre>
-            </div>
-          </li>
-          <li>
-            <h3>Pair each device</h3>
-            <p>On the host, open <strong>Devices</strong> to get a one-time code. Open your private Harbor address on the device and enter the code. Generate a new code for each device.</p>
-            <p>On iPhone or iPad, add Harbor to the Home Screen from Safari before pairing if you plan to use it there. Keep the media host awake and Harbor running for streaming away from home.</p>
-          </li>
-        </ol>
-        <p id="copy-status" class="visually-hidden" role="status"></p>
-      </div>
-    </section>
-
-    <section class="section questions" aria-labelledby="questions-title">
-      <div class="shell questions-grid">
-        <h2 id="questions-title">Before you switch</h2>
-        <div class="question-list">
-          <details>
-            <summary>Where does the music come from?</summary>
-            <p>Harbor plays audio files you provide. Streaming-service catalogs, subscriptions, and in-app downloads aren’t imported. Start with files from your own collection, such as purchased downloads or a CD collection you’ve digitized.</p>
-          </details>
-          <details>
-            <summary>Can I listen when the host is off?</summary>
-            <p>Previously downloaded tracks can play offline on the device that saved them. Streaming, new downloads, and syncing resume when your host is reachable again.</p>
-          </details>
-          <details>
-            <summary>Do I need a NAS or a Mac app?</summary>
-            <p>An always-on Mac or Linux computer with local storage works as a media host. Use a browser on your listening devices. The <a href="https://github.com/bobofbuilding/harbor-music#build-the-mac-app">optional Mac app</a> connects to the same library.</p>
-          </details>
-          <details>
-            <summary>Can a friend use a separate Tailscale network?</summary>
-            <p>Yes. Optional friend sharing uses a separate transfer address for approved Harbor installations. Your private player stays on your own network. <a href="https://github.com/bobofbuilding/harbor-music#enable-friend-sharing">See the sharing setup.</a></p>
-          </details>
+        <h2 id="overview-title">Bring your own music files</h2>
+        <p class="section-intro">A folder of purchased downloads or digitized CDs is enough to get started. Play your files without a streaming subscription.</p>
+        <div class="overview-links">
+          <p><a href="./features/">Features</a><span>See what syncs across devices and what you can keep offline.</span></p>
+          <p><a href="./stack/">Stack</a><span>See how the media host and listening devices connect.</span></p>
+          <p><a href="./setup/">Setup</a><span>Start a library and pair your first device.</span></p>
         </div>
       </div>
     </section>
@@ -165,7 +66,7 @@ cd harbor-music
     <div class="shell footer-inner">
       <a class="brand" href="./">Harbor Music</a>
       <nav aria-label="Footer navigation">
-        <a href="#setup">Setup</a>
+        <a href="./setup/">Setup</a>
         <a href="https://github.com/bobofbuilding/harbor-music">GitHub</a>
         <a href="https://github.com/bobofbuilding/harbor-music/blob/main/LICENSE">MIT License</a>
       </nav>
