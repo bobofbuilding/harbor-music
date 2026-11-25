@@ -61,7 +61,7 @@ def serve(args):
             server.shutdown()
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, required=True, help="folder containing your music")
     parser.add_argument("--data-dir", type=Path, required=True, help="directory for Harbor's private state")
@@ -69,7 +69,7 @@ def main():
     parser.add_argument("--scan-interval", type=int, default=120, help="seconds between scans (default: 120)")
     parser.add_argument("--music-port", type=int, default=8765, help="loopback port for the paired player")
     parser.add_argument("--admin-port", type=int, default=18765, help="loopback port for the media host controls")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.scan_interval < 1:
         parser.error("--scan-interval must be at least one second")
     logging.basicConfig(level=logging.INFO, format="%(message)s")

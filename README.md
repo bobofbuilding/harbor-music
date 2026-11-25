@@ -2,19 +2,21 @@
 
 Harbor Music runs a private music library from a folder of audio files. Use an always-on Mac or Linux computer as your **media host**, or run it on a compatible NAS. Pair your phones, tablets, and computers with the same host to share Favorites, playlists, and where you left off. Keep device-only playlists and download selected lists for offline listening. Friend sharing is optional.
 
-See the [design document and architecture diagram](DESIGN.md) for how an installation fits together.
+See the [design document and architecture diagram](DESIGN.md) for how an installation fits together. The [copyable setup prompt](SETUP-PROMPT.md) is available if you want help following these steps in a coding assistant.
 
 ## Start a library
 
-For a computer-hosted setup, start with a music folder on the computer’s local disk. Keep the computer awake, connected to your network, and running Harbor when you want to stream. Use Python 3.11 or later for a new installation. Install FFmpeg with `ffprobe` on your `PATH` for tag extraction. Harbor can run on hosts without `ffprobe` using folder names and any previously indexed tags. Start it from the repository folder on your media host.
+On your media host, start with a music folder on the computer’s local disk and use Python 3.11 or later for a new installation. FFmpeg is optional. With `ffprobe` on your `PATH`, Harbor can read song tags from the files.
 
 ```sh
-python3 -m harbor_music \
-  --root "$HOME/Music" \
-  --data-dir "$HOME/.local/share/harbor-music"
+git clone https://github.com/bobofbuilding/harbor-music.git
+cd harbor-music
+./setup-harbor
 ```
 
-Open [the local owner player](http://127.0.0.1:18765/music/) on the media host. Harbor indexes the folder in the background and checks for changes every two minutes by default. For a large first scan, reload the Library view as more songs become available. Audio plays in its original format, so use formats your browser supports. MP3, AAC in M4A, and WAV are good starting points.
+Enter the music folder at the prompt or press Enter to use `~/Music`. The command starts Harbor and prints the address of the [local owner player](http://127.0.0.1:18765/music/). Open that address on the media host to check that your songs appear. Harbor indexes files in the background, so reload the Library view if you opened it during the first scan. Use audio formats your browser supports, such as MP3, AAC in M4A, or WAV.
+
+Keep the media host awake, connected to your network, and running Harbor while other devices are listening. Rerun the same setup command to reopen the same catalog. To skip the prompt, run `./setup-harbor "$HOME/Music"`. The catalog defaults to `~/.local/share/harbor-music`. Run `./setup-harbor --help` for the setup options or `python3 -m harbor_music --help` for the server options.
 
 If either loopback port is already in use, choose other ports with `--admin-port` and `--music-port` and use those values in the addresses and proxy settings below.
 

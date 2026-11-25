@@ -68,7 +68,7 @@ if [[ "${1:-}" == recovery ]]; then
   node tests/recovery.cjs "$root"
   exit
 fi
-python3 -B -m harbor_music --root "$root/library" --data-dir "$root/state" \
+./setup-harbor "$root/library" --data-dir "$root/state" \
   --admin-port 28765 --music-port 28766 >"$root/server.log" 2>&1 &
 pids+=($!)
 node tests/https-relay.cjs "$root" >"$root/relay.log" 2>&1 &
