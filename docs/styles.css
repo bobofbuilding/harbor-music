@@ -123,6 +123,22 @@ nav a[aria-current='page'] { text-decoration-color: var(--salmon); text-decorati
 .feature-list dt { margin-bottom: .32rem; font-size: 1.17rem; font-weight: 720; letter-spacing: -.025em; }
 .feature-list dd, .stack-list dd { color: var(--muted); }
 
+.feature-intro { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+.app-gallery { background: #e5eae6; padding-block: clamp(2.65rem, 5vw, 4.65rem); }
+.app-gallery h2 { font-size: clamp(2.4rem, 4.5vw, 3.8rem); }
+.app-screenshots {
+  display: grid;
+  grid-template-columns: minmax(12rem, .5fr) minmax(0, 1.36fr);
+  align-items: start;
+  gap: clamp(1.25rem, 3.5vw, 3.2rem);
+  margin-top: 1.65rem;
+}
+.app-screenshot a { display: block; border: 1px solid #63747d; border-radius: .65rem; overflow: hidden; background: var(--night); }
+.app-screenshot img { width: 100%; }
+.phone-screenshot { width: min(100%, 18rem); justify-self: center; }
+.app-screenshot figcaption { margin-top: .72rem; color: var(--muted); font-size: .94rem; }
+.app-screenshot strong { display: block; color: var(--ink); font-size: 1rem; }
+
 .stack { background: #e5eae6; }
 .stack-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: .3rem 2rem; margin-bottom: 1.85rem; }
 .stack-heading .section-intro { max-width: 26rem; }
@@ -214,6 +230,7 @@ footer { background: var(--night-deep); color: var(--chalk); }
 
 @media (max-width: 46rem) {
   .hero-grid, .features-grid, .setup-grid, .questions-grid, .stack-grid { grid-template-columns: minmax(0, 1fr); }
+  .app-screenshots { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
   .hero h1, .page-title { font-size: clamp(3rem, 10.5vw, 5.2rem); }
   .hero-image { aspect-ratio: 4 / 3; }
   .hero-copy > p { margin-top: 1rem; }
