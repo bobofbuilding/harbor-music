@@ -1,0 +1,21 @@
+[Unit]
+Description=Harbor Music
+After=network.target
+RequiresMountsFor=/srv/music
+
+[Service]
+Type=simple
+User=harbor
+Group=harbor
+WorkingDirectory=/opt/harbor-music
+StateDirectory=harbor-music
+StateDirectoryMode=0700
+EnvironmentFile=-/etc/harbor-music.env
+ExecStart=/usr/bin/python3 -m harbor_music --root /srv/music --data-dir /var/lib/harbor-music
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

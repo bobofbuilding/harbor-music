@@ -1,0 +1,11 @@
+{
+  "name": "Harbor Music",
+  "short_name": "Harbor Music",
+  "id": "/music/",
+  "start_url": "/music/",
+  "scope": "/music/",
+  "display": "standalone",
+  "theme_color": "#0c1016",
+  "background_color": "#0c1016",
+  "icons": [{ "src": "/music/icon.png", "sizes": "1254x1254", "type": "image/png" }]
+}

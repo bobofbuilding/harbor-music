@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c1016">
+  <meta name="apple-mobile-web-app-title" content="Harbor Music">
+  <link rel="manifest" href="/music/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/music/icon.png">
+  <link rel="icon" href="/music/icon.png">
+  <link rel="stylesheet" href="/music/music.css">
+  <script src="/music/sharing.js" defer></script>
+  <script src="/music/music.js" defer></script>
+  <title>Harbor Music</title>
+</head>
+<body>
+  <header class="masthead">
+    <div class="frame top">
+      <div class="brand"><img src="/music/icon.png" alt="" width="40" height="40"><span>Harbor Music</span></div>
+      <div class="top-actions">
+        <button type="button" id="open-sharing" aria-haspopup="dialog" hidden>Sharing</button>
+        <button type="button" id="devices" aria-haspopup="dialog" hidden>Devices</button>
+      </div>
+    </div>
+  </header>
+  <main class="frame">
+    <p id="status" class="status" aria-live="polite">Connecting to Harbor…</p>
+    <section id="pair-view" class="panel pair" hidden>
+      <h1>Connect to Harbor</h1>
+      <p>Enter the one-time pairing code from your media host.</p>
+      <form id="pair-form">
+        <label>Device name <input name="name" placeholder="e.g. Phone" maxlength="80" autocomplete="off"></label>
+        <label>Pairing code <input name="code" required minlength="8" maxlength="8" autocapitalize="characters" spellcheck="false" autocomplete="one-time-code" class="pair-input"></label>
+        <button type="submit" class="primary">Connect</button>
+      </form>
+    </section>
+    <div id="app" hidden>
+      <nav class="tabs" aria-label="Music">
+        <button type="button" data-view="library" aria-current="page"><span class="tab-icon" aria-hidden="true">♫</span>Library</button>
+        <button type="button" data-view="playlists"><span class="tab-icon" aria-hidden="true">☰</span>Playlists</button>
+        <button type="button" data-view="favorites"><span class="tab-icon" aria-hidden="true">♥</span>Favorites</button>
+        <button type="button" data-view="downloads"><span class="tab-icon" aria-hidden="true">↓</span>Downloads</button>
+      </nav>
+      <div class="heading">
+        <div class="heading-copy">
+          <h1 id="title" tabindex="-1">Library</h1>
+          <p id="collection-detail" class="collection-detail" hidden></p>
+        </div>
+        <div id="actions" class="actions"></div>
+      </div>
+      <div id="browse-tools" class="browse-tools">
+        <label id="search-label" class="search">
+          <span class="sr-only">Search music</span>
+          <input id="search" type="search" placeholder="Search this list" autocomplete="off">
+        </label>
+        <button type="button" id="filter-button" aria-haspopup="dialog">Filter &amp; sort</button>
+        <p id="filter-summary" class="filter-summary" hidden></p>
+      </div>
+      <ul id="lists" class="lists" hidden></ul>
+      <ul id="tracks" class="tracks"></ul>
+      <p id="empty" class="empty" hidden></p>
+      <div id="track-page" class="track-page" hidden>
+        <p id="page-status" role="status"></p>
+        <button type="button" id="more" hidden>Try again</button>
+      </div>
+    </div>
+  </main>
+
+  <section id="now-playing" class="player" aria-label="Now playing" hidden>
+    <div class="frame player-inner">
+      <button id="playing-info" class="playing-info hold-target" type="button" aria-haspopup="dialog" aria-label="Current song options">
+        <span class="playing-copy"><strong id="playing-title"></strong><span id="playing-artist"></span></span>
+        <span class="playing-more" aria-hidden="true">⋯</span>
+      </button>
+      <button id="playback-mode" class="playback-mode" type="button" aria-label="Shuffle playback" aria-pressed="false">In order</button>
+      <button id="favorite-player" class="player-heart" type="button" aria-label="Favorite current track" aria-pressed="false">♡</button>
+      <div class="player-timeline">
+        <span id="playback-elapsed" aria-hidden="true">0:00</span>
+        <div class="playback-seek">
+          <input id="playback-position" type="range" min="0" max="0" step="any" value="0" aria-label="Seek within track" disabled>
+          <span id="playback-rail" aria-hidden="true"></span>
+        </div>
+        <span id="playback-duration" aria-hidden="true">–:––</span>
+      </div>
+      <div class="transport">
+        <button id="previous" class="skip-track" type="button" aria-label="Previous track">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h3v14H4zm16 0v14L9 12z"/></svg>
+        </button>
+        <audio id="audio" controls preload="metadata"></audio>
+        <button id="playback-toggle" class="playback-toggle primary" type="button" aria-label="Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path class="play-icon" d="M8 4v16l13-8z"/>
+            <path class="pause-icon" d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+          </svg>
+        </button>
+        <button id="next" class="skip-track" type="button" aria-label="Next track">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 5h3v14h-3zM4 5l11 7-11 7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <dialog id="track-dialog" aria-labelledby="track-dialog-title">
+    <header class="sheet-heading">
+      <div>
+        <h2 id="track-dialog-title"></h2>
+        <p id="track-dialog-detail"></p>
+      </div>
+      <button type="button" class="close-sheet" data-close aria-label="Close track options" autofocus>×</button>
+    </header>
+    <div class="track-menu">
+      <button type="button" data-track-action="artist"><strong>Go to artist</strong><small id="track-menu-artist"></small></button>
+      <button type="button" data-track-action="album"><strong>Go to album</strong><small id="track-menu-album"></small></button>
+      <button type="button" data-track-action="add">Add to playlist</button>
+      <button type="button" data-track-action="share" hidden>Share song</button>
+      <button type="button" data-track-action="download">Download track</button>
+      <button type="button" data-track-action="remove" class="destructive">Remove from playlist</button>
+    </div>
+  </dialog>
+  <dialog id="filter-dialog" aria-labelledby="filter-title">
+    <form id="filter-form">
+      <h2 id="filter-title">Filter &amp; sort</h2>
+      <label>Sort by
+        <select name="sort">
+          <option value="playlist" hidden>Playlist order</option>
+          <option value="title">Song title (A–Z)</option>
+          <option value="title-desc">Song title (Z–A)</option>
+          <option value="genre">Genre</option>
+          <option value="artist">Artist</option>
+          <option value="album">Album</option>
+        </select>
+      </label>
+      <label>Genre <select name="genre" aria-label="Genre"></select></label>
+      <label>Artist <input name="artist" type="search" maxlength="180" placeholder="Any artist"></label>
+      <label>Album <input name="album" type="search" maxlength="180" placeholder="Any album"></label>
+      <div class="dialog-actions">
+        <button type="button" id="clear-filters">Reset</button>
+        <button type="button" data-close>Cancel</button>
+        <button type="submit" class="primary">Apply</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="download-dialog" aria-labelledby="download-title">
+    <form id="download-form">
+      <h2 id="download-title">Download music</h2>
+      <p>Checked lists download to this device. New songs download automatically while Harbor is open and connected.</p>
+      <p>Unchecking a list removes its automatic downloads. Songs in another checked list stay downloaded.</p>
+      <fieldset class="download-sources">
+        <legend class="sr-only">Download sources</legend>
+        <div id="download-choices" class="choices"></div>
+      </fieldset>
+      <div class="dialog-actions">
+        <button type="button" data-close>Cancel</button>
+        <button type="submit" class="primary">Save changes</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="playlist-dialog" aria-labelledby="playlist-title">
+    <form id="playlist-form">
+      <h2 id="playlist-title">New playlist</h2>
+      <label>Playlist name <input name="name" required maxlength="180" autocomplete="off"></label>
+      <label>Keep this playlist
+        <select name="scope"><option value="synced">Sync across devices</option><option value="local">This device</option></select>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" data-close>Cancel</button>
+        <button type="submit" class="primary">Save playlist</button>
+      </div>
+      <button type="button" id="delete-playlist" class="destructive" hidden>Delete playlist</button>
+    </form>
+  </dialog>
+  <dialog id="delete-playlist-dialog" aria-labelledby="delete-playlist-title" aria-describedby="delete-playlist-detail">
+    <form id="delete-playlist-form">
+      <h2 id="delete-playlist-title">Delete playlist?</h2>
+      <p id="delete-playlist-detail"></p>
+      <div class="dialog-actions">
+        <button type="button" data-close autofocus>Cancel</button>
+        <button type="submit" class="destructive">Delete playlist</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="add-dialog" aria-labelledby="add-title">
+    <div class="dialog-body">
+      <h2 id="add-title">Add to playlist</h2>
+      <p id="add-track-title"></p>
+      <div id="add-choices" class="choices"></div>
+      <div class="dialog-actions">
+        <button type="button" data-close>Cancel</button>
+        <button type="button" class="primary" id="add-new">New playlist</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="playlist-options" aria-labelledby="playlist-options-title">
+    <div class="dialog-body">
+      <h2 id="playlist-options-title">Playlist options</h2>
+      <div class="track-menu">
+        <button type="button" id="edit-playlist-option">Edit playlist</button>
+        <button type="button" id="share-playlist-option">Share playlist</button>
+      </div>
+      <div class="dialog-actions"><button type="button" data-close>Close</button></div>
+    </div>
+  </dialog>
+  <dialog id="sharing-dialog" aria-labelledby="sharing-title">
+    <header class="sheet-heading">
+      <h2 id="sharing-title">Friends</h2>
+      <button type="button" class="close-sheet" id="sharing-close" aria-label="Close sharing">×</button>
+    </header>
+    <div id="sharing-body" class="sharing-list"></div>
+    <p id="sharing-notice" role="status"></p>
+  </dialog>
+  <dialog id="devices-dialog" aria-labelledby="devices-title">
+    <div class="dialog-body">
+      <h2 id="devices-title">Connected devices</h2>
+      <p>Open this media host’s private Harbor Music address on the device you want to pair. If you plan to use a Home Screen app, add it first. The code works once and expires after five minutes.</p>
+      <output id="pair-code" class="pair-code" aria-label="New device code"></output>
+      <ul id="paired-devices" class="lists" aria-label="Paired devices"></ul>
+      <div class="dialog-actions">
+        <button type="button" data-close>Close</button>
+        <button id="new-code" type="button" class="primary">New code</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
